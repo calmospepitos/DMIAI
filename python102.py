@@ -23,12 +23,12 @@ class GameCharacter:
 roger = GameCharacter("Roger", 100, 15) # Instance
 william = GameCharacter("William", 150, 10) # Instance
 
-print(f"{roger.name} a {roger.health()} points de vie.") # On ne peut pas accéder directement à la variable _health, donc on doit passer par le getter
+print(f"{roger.name} a {roger.health} points de vie.") # On ne peut pas accéder directement à la variable _health, donc on doit passer par le getter
 
 roger.attack() 
 GameCharacter.attack(roger) # C'est la même chose que la ligne précédente, mais meilleure pratique
 
 variable = 100
 roger._health = variable
-roger._GameCharacter__power = 0 # Pour accéder à une variable privée, on doit passer par le name mangling
+roger._GameCharacter__power = 0 # Pour accéder à une variable privée, on doit passer par le name mangling (changer la variable)
 GameCharacter.attack(roger)
