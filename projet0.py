@@ -4,8 +4,9 @@ class GOLEngine:
     def __init__(self, width, height, i):
         self.__width = width
         self.__height = height
-        self.__grid = [[i for _ in range(width)] for _ in range(height)] # On crée une grille de False de la taille width x height
+        self.__grid = [[i for _ in range(width)] for _ in range(height)] 
         self.__temp = self.__grid.copy()
+        self.__iterations = 0 # compteur d'itérations
 
     @property
     def width(self):
@@ -14,6 +15,18 @@ class GOLEngine:
     @property
     def height(self):
         return self.__height
+    
+    @property
+    def live_cells(self): # renvoie le nb de cels vivantes
+        return sum(cell for row in self.__grid for cell in row)
+    
+    @property
+    def dead_cells(self): #renvoie le nb de cels mortes
+        return self.width * self.height - self.live_cells
+    
+    @property
+    def iterations(self): #renvoie le nb d'itérations effectuées
+        return self.__iterations
     
     @width.setter
     def width(self, value):
@@ -50,7 +63,9 @@ class GOLEngine:
                     for dx in range(-1, 2):
                         if dx == 0 and dy == 0:
                             continue
-                        if self.get_cell(x + dx, y + dy):
+                        # modulo - éviter IndexError: list index out of range - au lieu de:
+                        # if self.get_cell(x + dx, y + dy):
+                        if self.get_cell((x + dx) % self.width, (y + dy) % self.height):
                             neighbors += 1
                 if self.get_cell(x, y):
                     self.__temp[y][x] = neighbors == 2 or neighbors == 3
@@ -60,6 +75,8 @@ class GOLEngine:
         for y in range(self.height):
             for x in range(self.width):
                 self.__grid[y][x] = self.__temp[y][x]
+
+        self.__iterations += 1 # incrémentation du compteur
 
 # Instanciation de la classe
 gol = GOLEngine(10, 10, False)
@@ -73,4 +90,9 @@ gol.randomize()
 #        print(gol.get_cell(x, y), end=' ')
 #    print()
 #
-#print(gol.width, gol.height)
+
+print("Largeur:", gol.width, "Hauteur:", gol.height)
+print("Cellules vivantes:", gol.live_cells)
+print("Cellules mortes:", gol.dead_cells)
+gol.process()
+print("Itérations:", gol.iterations)
