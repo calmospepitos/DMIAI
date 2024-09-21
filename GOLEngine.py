@@ -79,7 +79,7 @@ class GOLEngine:
              for x in range(self.__width):
                  if x != 0 and x != self.__width - 1 and y != 0 and y != self.__height - 1:
                      self.__grid[x][y] = 1 if random.random() > percent else 0
-                     self.__grid[x][y] = int(random.random() > percent)
+                     #self.__grid[x][y] = int(random.random() > percent)
                 
     def process(self):
         for x in range(1, self.__width-1):
