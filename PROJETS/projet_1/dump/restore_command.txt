@@ -1,0 +1,11 @@
+Commande pour restaurer la base de données KlustR
+
+Commande :
+"/Library/PostgreSQL/17/bin/pg_restore" --host=localhost --port=5432 --username=postgres --dbname=postgres /Users/alexia/Documents/Github/DMIAI/PROJETS/projet_1/dump/klustr.dump
+
+--- Attention, ajuster le dossier où se trouve le fichier klustr.dump ------------------------------------------------------^
+
+
+Mot de passe : 
+AAAaaa123
+
