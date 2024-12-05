@@ -1,0 +1,31 @@
+Optimisation du Placement de Caméra dans un Champ**
+Contexte :
+Dans un environnement, par exemple un champ agricole ou une zone urbaine, on doit optimiser le placement des capteurs pour couvrir efficacement une zone tout en minimisant le nombre de capteurs nécessaires.
+
+Application visuelle :
+Carte en 2D ou 3D : Afficher un plan du terrain avec des capteurs représentés par des points ou des petites icônes. L'algorithme génétique peut être visualisé en animant le placement des capteurs au fur et à mesure de l'optimisation.
+Couverture : L'algorithme peut être visualisé en fonction de la couverture de la zone : des couleurs différentes peuvent être utilisées pour montrer les zones couvertes et non couvertes, et l'algorithme ajuste progressivement les positions des capteurs pour maximiser la couverture.
+
+Champs visuel vers l'infini
+Variation des angles des caméras (ou fixe)
+nombre de caméras
+dimension du terrain
+comment calculer l'aire du champ de caméra si champ infini et terrain fixe?
+calculer la collision des champs de vision
+inconnus :
+Pas sur
+chromosome (x, y, rotation de la caméra)
+limiter le nbr de caméras à 3
+Commencer avec pas d'obstacles
+
+stratégies de mutation possible
+Mutation par déplacement aléatoire (Random Shift Mutation)
+Description : Cette stratégie consiste à déplacer un ou plusieurs capteurs de manière aléatoire dans l'espace tout en respectant les limites de l’environnement.
+Application : Un capteur, représenté par ses coordonnées (par exemple, x, y) et son orientation (si applicable), peut être déplacé d’un certain delta dans toutes les directions. La position de chaque capteur peut être légèrement perturbée tout en maintenant les contraintes de l’espace disponible.
+Exemple : Si un capteur est situé en (5, 10), après mutation il pourrait se déplacer à (6, 11) ou à (4, 9), modifiant ainsi sa position tout en maintenant la couverture de surface.
+
+une stratégie générique : 
+pondération sur les autres stratégies
+
+stratégie spécifique : 
+Mutation par déplacement aléatoire (Random Shift Mutation)

@@ -573,7 +573,8 @@ if __name__ == '__main__':
     print( "   > on vous suggère d'explorer le schéma 'KlustR' avec 'pgAdmin'")
     print()
 
-    credential = PostgreSQLCredential(host='localhost', port=5433, database='postgres', user='postgres', password='AAAaaa111')
+    # Pour Mac d'Alexia utiliser port=5433
+    credential = PostgreSQLCredential(host='localhost', port=5432, database='postgres', user='postgres', password='AAAaaa123')
     klustr_dao = PostgreSQLKlustRDAO(credential)
     source_data_widget = KlustRDataSourceViewWidget(klustr_dao)
     source_data_widget.show()

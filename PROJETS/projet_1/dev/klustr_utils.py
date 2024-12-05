@@ -1,9 +1,6 @@
-
-
 import numpy as np
 from PySide6 import QtCore, QtGui
 from __feature__ import snake_case, true_property 
-
 
 def qimage_argb32_from_png_decoding(img_data):
     '''Effectue le décodage d'un 'buffer' de données correspondant à une 

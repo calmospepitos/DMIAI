@@ -6,7 +6,6 @@ from PySide6.QtGui import QColor
 from __feature__ import snake_case, true_property
 
 
-
 class QColorSequence:
     """
     Cette classe sert à générer une séquence de couleurs distinctes en 

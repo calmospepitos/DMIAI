@@ -1,20 +1,15 @@
 import sys
 import os
-
+import numpy as np
 from types import NoneType
 from enum import Enum, auto
-
 from random import uniform
-
-import numpy as np
-
 from PySide6.QtGui import QVector3D, QColor, QKeyEvent
 from PySide6.QtWidgets import QApplication, QWidget, QLabel, QSplitter, QScrollArea, QVBoxLayout, QHBoxLayout, QSizePolicy
 from PySide6.QtCore import Slot, Signal, Qt, QTimer, QSize
 from PySide6.QtDataVisualization import Q3DScatter, QScatter3DSeries
 
 from __feature__ import snake_case, true_property
-
 
 
 class QScatter3dViewer(QWidget):
@@ -88,6 +83,7 @@ class QScatter3dViewer(QWidget):
     >>> viewer.clear()
 
     """
+
     
     # public Types ------------------------------------------------------------
 

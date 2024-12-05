@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
 import psycopg as pg
 
-
-
 class KlustRDAO(ABC):
     def __init__(self):
         self._translated = True
@@ -68,11 +66,10 @@ class KlustRDAO(ABC):
     def image_from_dataset(self, dataset_name, training_image):
         raise NotImplementedError
 
-
-
 # TO DO : APPLY TRANSFORMATION FILTERS!!! AND move to serverside function
 class PostgreSQLKlustRDAO(KlustRDAO):
     def __init__(self, pg_connection_credential, quit_if_connection_failed=False):
+        super().__init__()  # Appeler le constructeur parent pour initialiser les attributs
         self._pg_connection_credential = pg_connection_credential
         try:
             self.pg_connection = pg.connect(self._pg_connection_credential.connection_string)
