@@ -79,6 +79,10 @@
   ```python
   new_arr = np.transpose(arr)  # [[1, 4], [2, 5], [3, 6]]
   ```
+- **Concatenate**: Joins arrays along an axis.
+  ```python
+  new_arr = np.concatenate((arr1, arr2))  # [1, 2, 3, 4]
+  ```
 - **Stacking**: Combine multiple arrays into one.
   ```python
   arr1 = np.array([1, 2])
@@ -92,15 +96,7 @@
   arr = np.arange(1, 10)
   split = np.array_split(arr, 3)
   ```
-- **Concatenate**: Joins arrays along an axis.
-  ```python
-  new_arr = np.concatenate((arr1, arr2))  # [1, 2, 3, 4]
-  ```
-- **Broadcasting**: Perform operations on arrays of different shapes.
-  ```python
-  arr = np.array([1, 2, 3])
-  broadcasted = arr + 10  # [11, 12, 13]
-  ```
+
 ### Adding Elements
 - **`np.append`**: Adds values to the end of an array.
   ```python
@@ -131,17 +127,18 @@
   ```
 
 ### Mathematical Operations
-- **Element-wise**: Operations like `+`, `-`, `*`, `/` are element-wise.
+- **Broadcasting**: Perform operations on arrays of different shapes.
   ```python
-  new_arr = arr * 2  # [2, 4, 6]
+  arr = np.array([1, 2, 3])
+  broadcasted = arr + 10  # [11, 12, 13]
   ```
 - **Mathematical Operations**: Perform operations across arrays.
   ```python
   arr = np.array([1, 2, 3])
   summed = arr + arr  # [2, 4, 6]
   ```
+- **Element-wise**: Operations like `+`, `-`, `*`, `/` are element-wise.
 - **Aggregation**: `np.sum(arr)`, `np.mean(arr)`, `np.max(arr)`, `np.min(arr)`.
-
 
 ## Array Attributes
 
@@ -195,43 +192,90 @@ app.exec_()
 ### QMainWindow
 - Provides more complex window structures, with menu bars, toolbars, and status bars.
 
----
-### Genetic Algorithms (GA)
-- **Definition**: Genetic Algorithms are optimization algorithms inspired by the process of natural selection in biology.
-- **Key Concepts**:
-  - **Population**: A group of potential solutions, each represented as a chromosome.
-  - **Chromosome**: Encodes a candidate solution, often as a string, binary array, or real numbers.
-  - **Fitness Function**: Evaluates how close a chromosome is to the optimal solution.
-  - **Selection**: Chooses parent chromosomes for reproduction based on fitness scores.
-  - **Crossover**: Combines parts of two parent chromosomes to produce offspring.
-  - **Mutation**: Introduces random changes to offspring to maintain diversity.
-- **Steps in a Genetic Algorithm**:
-  1. Initialize the population randomly.
-  2. Select parents based on fitness scores.
-  3. Apply crossover and mutation to generate offspring.
-  4. Mutation.
-- **Applications**:
-  - Optimization problems (e.g., scheduling, resource allocation).
-  - Feature selection in machine learning.
-  - Hyperparameter tuning.
-  - Game AI for strategy development.
-- **Example of a Simple GA**:
+## Genetic Algorithms (GA)
+
+- **Definition**: Genetic Algorithms are optimization techniques inspired by the natural selection process in biology. They simulate evolution to find optimal or near-optimal solutions for complex problems.
+
+### Biological Background
+
+- **Natural Selection**: Individuals with favorable traits are more likely to survive and reproduce, passing their traits to the next generation. In GAs, individuals with higher fitness scores are selected for reproduction.
+- **Genes, Crossover, and Mutation**:  
+   - **Chromosomes** represent potential solutions, composed of 'genes.'
+   - **Crossover** combines genes from two parents to create offspring.
+   - **Mutation** introduces random changes to maintain diversity and explore new solution spaces.
+
+### Components of a Genetic Algorithm
+1. **Population**: A set of candidate solutions (chromosomes) for the problem.
+   - Example: Chromosomes represent truck delivery routes.
+2. **Fitness Function**: Evaluates how well a solution meets the     objective. Higher fitness indicates better solutions.
+3. **Selection Function**: Chooses individuals for reproduction based on fitness.
+4. **Crossover Function**: Combines information from parents to produce offspring.
+5. **Mutation Function**: Introduces randomness by altering genes, ensuring diversity and avoiding local optima.
+
+### Selection Methods
+- **Roulette Wheel Selection**: Individuals are selected based on their fitness proportions, like spinning a roulette wheel where fitter individuals occupy larger segments.
+- **Tournament Selection**: Randomly choose a subset of individuals and select the fittest among them.
+- **Rank-Based Selection**: Individuals are ranked based on fitness, and selection probability is assigned according to rank rather than absolute fitness.
+
+### Crossover Techniques
+- **Single-point Crossover**: Choose one point in the parent chromosomes and swap the segments after that point.
+- **Multi-point Crossover**: Select multiple points for segment swapping.
+- **Uniform Crossover**: For each gene, randomly choose which parent to inherit from.
+
+### The Process
+1. **Initialization**: Generate an initial random population.
+2. **Evaluation**: Calculate fitness scores for the population.
+3. **Selection**: Choose individuals for reproduction.
+4. **Crossover**: Combine parent genes to create new individuals.
+5. **Mutation**: Introduce random changes in offspring.
+6. **Replacement**: Form a new population with offspring.
+7. **Repeat**: Iterate until reaching the termination condition.
+
+### Termination Conditions
+GAs typically terminate when one of these conditions is met:
+- A satisfactory solution is found.
+- A maximum number of generations is reached.
+- The population converges (diversity is lost).
+- Computational budget (time or resources) is exhausted.
+
+### The Applications
+- **Optimization**: Scheduling, resource allocation, and layout design.
+- **Machine Learning**: Feature selection and hyperparameter tuning.
+- **AI**: Strategy development in games.
+
+### The Challenges and Tips
+- **Parameter Tuning**:  
+   - Population size, mutation rate, and crossover rate significantly affect performance.
+   - Larger populations offer better solutions but require more resources.
+- **Encoding**: Transform problem-specific solutions into a chromosome format, e.g., routes as sequences.
+- **Premature Convergence**:  
+   - Occurs when the population lacks diversity.
+   - Solutions: Increase mutation rate or start with a diverse initial population.
+- **Elitism**:  
+   - Retains the best solutions for the next generation.
+   - Must balance elitism with diversity to prevent premature convergence.
+
+### Example of a Simple GA
   ```python
   import numpy as np
-  
-  def fitness_function(chromosome):
-      return sum(chromosome)  # Example: maximize the sum of genes
-  
-  def select_parents(population, fitness_scores):
-      return population[np.argsort(fitness_scores)[-2:]]  # Top 2 chromosomes
-  
-  def crossover(parent1, parent2):
-      point = len(parent1) // 2
-      return np.concatenate((parent1[:point], parent2[point:]))
-  
-  def mutate(chromosome, mutation_rate=0.1):
-      for i in range(len(chromosome)):
+
+  def tsp_fitness(route, distances):
+      return -sum(distances[route[i], route[i+1]] for i in range(len(route)-1))
+
+  def order_crossover(parent1, parent2):
+      size = len(parent1)
+      start, end = sorted(np.random.randint(0, size, 2))
+      child = [-1] * size
+      child[start:end] = parent1[start:end]
+      remaining = [item for item in parent2 if item not in child]
+      child[:start] = remaining[:start]
+      child[end:] = remaining[start:]
+      return child
+
+  def swap_mutation(route, mutation_rate=0.1):
+      for i in range(len(route)):
           if np.random.rand() < mutation_rate:
-              chromosome[i] = 1 - chromosome[i]  # Flip bit for binary chromosome
-      return chromosome
+              j = np.random.randint(0, len(route))
+              route[i], route[j] = route[j], route[i]
+      return route
   ```
